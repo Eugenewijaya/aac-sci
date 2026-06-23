@@ -87,10 +87,10 @@ export default function AACMode() {
         />
       )}
 
-      <header className="bg-white shadow-lg z-10 px-4 py-3 flex flex-col gap-3 shrink-0 rounded-b-[2rem] border-b-4 border-amber-200">
-        <div className="flex justify-between items-center px-2">
-            <h1 className="font-black text-2xl text-amber-600 flex items-center gap-2">
-              AAC <span className="text-slate-400 text-sm font-bold bg-slate-100 px-3 py-1 rounded-full">Star Champs</span>
+      <header className="bg-white shadow-lg z-10 px-3 py-2 flex flex-col gap-2 shrink-0 rounded-b-3xl border-b-4 border-amber-200">
+        <div className="flex justify-between items-center px-1">
+            <h1 className="font-black text-xl text-amber-600 flex items-center gap-2">
+              AAC <span className="text-slate-400 text-xs font-bold bg-slate-100 px-2 py-1 rounded-full hidden sm:inline-block">Star Champs</span>
             </h1>
             <div className="flex gap-2">
               <button 
@@ -101,16 +101,16 @@ export default function AACMode() {
                 {isFullscreen ? <Minimize size={28} /> : <Maximize size={28} />}
               </button>
               <button 
-                onDoubleClick={() => setShowPin(true)} 
+                onClick={() => setShowPin(true)} 
                 className="text-slate-300 hover:text-slate-400 p-2 rounded-full active:bg-slate-50 transition-colors"
-                title="Ketuk 2x untuk Pengaturan"
+                title="Pengaturan"
               >
                 <Settings size={28} />
               </button>
             </div>
         </div>
-        <div className="bg-amber-50/50 border-4 border-amber-100 rounded-3xl p-3 min-h-[100px] flex items-center justify-between gap-3 shadow-inner">
-            <div className="flex-1 flex flex-wrap gap-2 text-xl font-bold text-slate-700 items-center overflow-y-auto max-h-[120px] p-1">
+        <div className="bg-amber-50/50 border-2 sm:border-4 border-amber-100 rounded-2xl sm:rounded-3xl p-2 sm:p-3 min-h-[60px] sm:min-h-[80px] flex items-center justify-between gap-2 shadow-inner">
+            <div className="flex-1 flex flex-wrap gap-2 text-lg sm:text-xl font-bold text-slate-700 items-center overflow-y-auto max-h-[70px] sm:max-h-[100px] p-1">
                 {currentSentence.length === 0 ? (
                   <span className="text-slate-400 text-base font-medium italic">Tekan gambar untuk menyusun kata...</span>
                 ) : (
@@ -119,12 +119,12 @@ export default function AACMode() {
                   ))
                 )}
             </div>
-            <div className="flex gap-2 shrink-0 border-l-4 border-amber-100 pl-3">
-                <button onClick={clearSentence} className="bg-rose-100 text-rose-600 p-3 rounded-2xl w-16 h-16 flex flex-col items-center justify-center active:scale-95 transition-transform">
-                  <Trash2 size={28} />
+            <div className="flex gap-2 shrink-0 border-l-2 sm:border-l-4 border-amber-100 pl-2 sm:pl-3">
+                <button onClick={clearSentence} className="bg-rose-100 text-rose-600 p-2 sm:p-3 rounded-xl sm:rounded-2xl w-12 h-12 sm:w-16 sm:h-16 flex flex-col items-center justify-center active:scale-95 transition-transform">
+                  <Trash2 size={24} />
                 </button>
-                <button onClick={speakSentence} className="bg-amber-500 text-white p-3 rounded-2xl w-16 h-16 flex flex-col items-center justify-center active:scale-95 transition-transform shadow-md shadow-amber-200/50">
-                  <Mic size={28} />
+                <button onClick={speakSentence} className="bg-amber-500 text-white p-2 sm:p-3 rounded-xl sm:rounded-2xl w-12 h-12 sm:w-16 sm:h-16 flex flex-col items-center justify-center active:scale-95 transition-transform shadow-md shadow-amber-200/50">
+                  <Mic size={24} />
                 </button>
             </div>
         </div>
