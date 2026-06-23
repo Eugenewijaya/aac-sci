@@ -8,7 +8,7 @@ export const useAAC = () => useContext(AACContext);
 
 export const AACProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
-  const [settings, setSettings] = useState({ pitch: 1.1, rate: 0.85, pin: '1234' });
+  const [settings, setSettings] = useState({ pitch: 1.1, rate: 0.85, pin: '1234', autoFullscreen: true });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,9 +25,9 @@ export const AACProvider = ({ children }) => {
         }
 
         if (storedSettings) {
-          setSettings(storedSettings);
+          setSettings({ autoFullscreen: true, ...storedSettings });
         } else {
-          await localforage.setItem('aac_settings', { pitch: 1.1, rate: 0.85, pin: '1234' });
+          await localforage.setItem('aac_settings', { pitch: 1.1, rate: 0.85, pin: '1234', autoFullscreen: true });
         }
       } catch (err) {
         console.error("Error loading data", err);

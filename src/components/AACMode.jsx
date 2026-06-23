@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Settings, Trash2, Mic } from 'lucide-react';
+import { Settings, Trash2, Mic, Maximize, Minimize } from 'lucide-react';
 import { useAAC } from '../context/AACContext';
 import { playSound } from '../utils/tts';
 import PinModal from './PinModal';
@@ -10,7 +10,36 @@ export default function AACMode() {
   const [activeCategoryId, setActiveCategoryId] = useState('');
   const [currentSentence, setCurrentSentence] = useState([]);
   const [showPin, setShowPin] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+  }, []);
+
+  const handleInteraction = () => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      if (settings.autoFullscreen && !document.fullscreenElement && document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(err => console.log('Fullscreen error:', err));
+      }
+    }
+  };
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => console.log('Error attempting to enable fullscreen:', err));
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
 
   useEffect(() => {
     if (categories.length > 0 && !activeCategoryId) {
@@ -49,7 +78,7 @@ export default function AACMode() {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#FFF9EA]">
+    <div className="flex flex-col h-screen overflow-hidden bg-[#FFF9EA]" onClick={handleInteraction}>
       {showPin && (
         <PinModal 
           correctPin={settings.pin} 
@@ -63,13 +92,22 @@ export default function AACMode() {
             <h1 className="font-black text-2xl text-amber-600 flex items-center gap-2">
               AAC <span className="text-slate-400 text-sm font-bold bg-slate-100 px-3 py-1 rounded-full">Star Champs</span>
             </h1>
-            <button 
-              onDoubleClick={() => setShowPin(true)} 
-              className="text-slate-300 hover:text-slate-400 p-2 rounded-full active:bg-slate-50 transition-colors"
-              title="Ketuk 2x untuk Pengaturan"
-            >
-              <Settings size={28} />
-            </button>
+            <div className="flex gap-2">
+              <button 
+                onClick={toggleFullscreen} 
+                className="text-slate-300 hover:text-slate-400 p-2 rounded-full active:bg-slate-50 transition-colors"
+                title="Layar Penuh"
+              >
+                {isFullscreen ? <Minimize size={28} /> : <Maximize size={28} />}
+              </button>
+              <button 
+                onDoubleClick={() => setShowPin(true)} 
+                className="text-slate-300 hover:text-slate-400 p-2 rounded-full active:bg-slate-50 transition-colors"
+                title="Ketuk 2x untuk Pengaturan"
+              >
+                <Settings size={28} />
+              </button>
+            </div>
         </div>
         <div className="bg-amber-50/50 border-4 border-amber-100 rounded-3xl p-3 min-h-[100px] flex items-center justify-between gap-3 shadow-inner">
             <div className="flex-1 flex flex-wrap gap-2 text-xl font-bold text-slate-700 items-center overflow-y-auto max-h-[120px] p-1">

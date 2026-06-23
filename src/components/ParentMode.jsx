@@ -100,7 +100,7 @@ export default function ParentMode() {
         
         {/* Settings Section */}
         <section className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
-          <h2 className="text-xl font-bold text-slate-800 mb-6">Pengaturan Suara & Keamanan</h2>
+          <h2 className="text-xl font-bold text-slate-800 mb-6">Pengaturan Umum & Keamanan</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <label className="block text-sm font-bold text-slate-600 mb-2">Kecepatan Suara (Rate: {localSettings.rate})</label>
@@ -130,6 +130,22 @@ export default function ParentMode() {
                 className="w-full max-w-xs bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-amber-500"
               />
               <p className="text-xs text-slate-400 mt-2">PIN digunakan untuk mencegah anak masuk ke menu ini dan menghapus kata tanpa sengaja.</p>
+            </div>
+            
+            <div className="md:col-span-2 flex items-center justify-between bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+              <div>
+                <label className="block text-sm font-bold text-slate-600">Layar Penuh Otomatis</label>
+                <p className="text-xs text-slate-400 mt-1">Otomatis masuk ke mode layar penuh saat anak menyentuh layar pertama kali.</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  className="sr-only peer"
+                  checked={localSettings.autoFullscreen || false}
+                  onChange={e => setLocalSettings({...localSettings, autoFullscreen: e.target.checked})}
+                />
+                <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+              </label>
             </div>
           </div>
         </section>
