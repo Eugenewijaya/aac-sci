@@ -93,9 +93,9 @@ export const defaultVocabulary = [
 ];
 
 export const pronunciationMap = {
-  "bluberi": "blu beri", 
+  "bluberi": "blu beh ri", 
   "sup": "suup", 
-  "stroberi": "stro beri", 
+  "stroberi": "stro beh ri", 
   "melon": "meh lon",
   "terapis": "teh rapis",
   "haus": "ha us",
