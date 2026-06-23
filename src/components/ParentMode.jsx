@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAAC } from '../context/AACContext';
 import { ArrowLeft, Plus, Trash2, Save, Upload, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ParentMode() {
   const { categories, saveCategories, settings, saveSettings } = useAAC();
@@ -177,42 +178,84 @@ export default function ParentMode() {
         </section>
 
         {/* Categories Section */}
-        <section className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-slate-800">Manajemen Kosakata</h2>
-            <button onClick={handleAddCategory} className="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition-colors">
+        <section className="bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <div>
+              <h2 className="text-2xl font-black text-slate-800">Manajemen Kosakata</h2>
+              <p className="text-sm text-slate-500 mt-1">Atur kata-kata dan gambar sesuai kebutuhan belajar anak.</p>
+            </div>
+            <button onClick={handleAddCategory} className="bg-indigo-50 text-indigo-600 hover:bg-indigo-500 hover:text-white px-5 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-sm hover:shadow-md active:scale-95">
               <Plus size={20} /> Kategori Baru
             </button>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
+            <AnimatePresence>
             {localCategories.map(cat => (
-              <div key={cat.id} className="border-2 border-slate-100 rounded-2xl p-4">
-                <div className="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{cat.icon}</span>
-                    <input 
-                      type="text" 
-                      value={cat.label}
-                      onChange={(e) => {
-                        const newLabel = e.target.value;
-                        setLocalCategories(localCategories.map(c => c.id === cat.id ? {...c, label: newLabel} : c));
-                      }}
-                      className="text-lg font-bold bg-slate-50 border border-slate-200 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-amber-500 w-48"
-                    />
+              <motion.div 
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                key={cat.id} 
+                className="bg-slate-50 border border-slate-200 rounded-[1.5rem] p-5 shadow-sm overflow-hidden"
+              >
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-5 border-b border-slate-200 gap-4">
+                  <div className="flex items-center gap-4 w-full sm:w-auto">
+                    <div className="bg-white p-3 rounded-2xl shadow-sm text-3xl shrink-0">
+                      {cat.icon}
+                    </div>
+                    <div className="flex-1">
+                       <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 block">Nama Kategori</label>
+                       <input 
+                         type="text" 
+                         value={cat.label}
+                         onChange={(e) => {
+                           const newLabel = e.target.value;
+                           setLocalCategories(localCategories.map(c => c.id === cat.id ? {...c, label: newLabel} : c));
+                         }}
+                         className="text-xl font-black text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-300 focus:border-amber-500 focus:outline-none w-full sm:w-64 transition-colors py-1"
+                       />
+                    </div>
                   </div>
-                  <button onClick={() => handleDeleteCategory(cat.id)} className="text-rose-400 hover:text-rose-600 p-2 bg-rose-50 rounded-lg">
-                    <Trash2 size={20} />
+                  <button onClick={() => handleDeleteCategory(cat.id)} className="flex items-center gap-2 text-rose-500 hover:bg-rose-500 hover:text-white px-4 py-2 rounded-xl font-bold transition-all w-full sm:w-auto justify-center group border border-rose-200 hover:border-rose-500">
+                    <Trash2 size={18} className="group-hover:scale-110 transition-transform"/> <span className="sm:hidden">Hapus Kategori</span>
                   </button>
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  <AnimatePresence>
                   {cat.words.map((w, i) => (
-                    <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col gap-3 min-w-[140px] relative group">
-                      <div className="flex justify-between items-start">
+                    <motion.div 
+                      layout
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      key={w.word + '_' + i} 
+                      className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-4 relative group hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <button 
+                        onClick={() => handleDeleteWord(cat.id, i)} 
+                        className="absolute -top-2 -right-2 bg-white text-slate-300 hover:text-rose-500 hover:bg-rose-50 p-1.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all z-10 border border-slate-100"
+                        title="Hapus kata"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                      
+                      <div className="h-24 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center text-5xl overflow-hidden relative group/img transition-colors hover:bg-slate-100">
+                        {w.image ? <img src={w.image} className="w-full h-full object-cover" alt={w.word} /> : w.emoji}
+                        <label className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-opacity text-white rounded-xl backdrop-blur-sm">
+                           <Upload size={24} className="mb-2" />
+                           <span className="text-xs font-bold px-2 text-center">Ganti Gambar</span>
+                           <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, cat.id, i)} />
+                        </label>
+                      </div>
+
+                      <div>
                         <input 
                           type="text"
                           value={w.word}
+                          placeholder="Nama Kata"
                           onChange={(e) => {
                             const newWord = e.target.value;
                             setLocalCategories(localCategories.map(c => {
@@ -224,28 +267,29 @@ export default function ParentMode() {
                               return c;
                             }))
                           }}
-                          className="font-bold text-slate-700 bg-transparent border-b border-slate-300 focus:border-amber-500 focus:outline-none w-full"
+                          className="font-bold text-center text-slate-700 bg-slate-50 border border-transparent hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none w-full py-2 px-3 rounded-lg transition-colors"
                         />
-                        <button onClick={() => handleDeleteWord(cat.id, i)} className="text-slate-300 hover:text-rose-500 ml-2">
-                          <Trash2 size={16} />
-                        </button>
                       </div>
-                      
-                      <div className="h-16 bg-white rounded-lg border border-slate-100 flex items-center justify-center text-3xl overflow-hidden relative">
-                        {w.image ? <img src={w.image} className="w-full h-full object-contain" /> : w.emoji}
-                        <label className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer transition-opacity text-white rounded-lg">
-                           <Upload size={20} />
-                           <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, cat.id, i)} />
-                        </label>
-                      </div>
-                    </div>
+                    </motion.div>
                   ))}
-                  <button onClick={() => handleAddWord(cat.id)} className="border-2 border-dashed border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-500 rounded-xl px-4 min-w-[140px] flex flex-col items-center justify-center font-bold transition-colors gap-2">
-                    <Plus size={24} /> <span>Tambah Kata</span>
-                  </button>
+                  </AnimatePresence>
+                  
+                  <motion.button 
+                    layout
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleAddWord(cat.id)} 
+                    className="border-2 border-dashed border-slate-300 hover:border-amber-400 hover:bg-amber-50 hover:text-amber-600 text-slate-400 rounded-2xl p-4 flex flex-col items-center justify-center font-bold transition-all gap-3 min-h-[160px] group"
+                  >
+                    <div className="bg-slate-100 p-3 rounded-full group-hover:bg-amber-100 transition-colors">
+                      <Plus size={28} />
+                    </div>
+                    <span>Tambah Kata</span>
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
             ))}
+            </AnimatePresence>
           </div>
         </section>
 
