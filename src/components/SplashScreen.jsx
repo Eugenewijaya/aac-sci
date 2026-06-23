@@ -37,11 +37,11 @@ export default function SplashScreen({ onComplete }) {
     <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
       <div className="animate-in zoom-in duration-700 flex flex-col items-center">
         <img 
-          src="/logo.png" 
+          src="/logo.jpg" 
           alt="Star Champs Logo" 
           className="w-64 h-auto object-contain" 
           onError={(e) => {
-            // Sembunyikan gambar jika file logo.png belum dimasukkan user
+            // Sembunyikan gambar jika file logo belum dimasukkan user
             e.target.style.display = 'none';
           }} 
         />
