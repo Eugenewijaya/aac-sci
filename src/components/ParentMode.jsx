@@ -251,7 +251,7 @@ export default function ParentMode() {
 
         {/* Legal & Copyright */}
         <div className="text-center mt-12 pb-8">
-          <button onClick={() => setShowLegal(true)} className="text-sm font-bold text-slate-400 hover:text-amber-500 transition-colors underline underline-offset-4">
+          <button onClick={() => setShowLegal(true)} className="text-xs font-medium text-slate-300 hover:text-slate-500 transition-colors">
             Legal & Hak Cipta
           </button>
         </div>
