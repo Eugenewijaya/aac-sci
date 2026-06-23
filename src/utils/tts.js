@@ -23,7 +23,11 @@ export const playSound = (text, rate = 0.85, pitch = 1.1) => {
     
     let spokenText = text.toLowerCase();
     let wordsArray = spokenText.split(" ");
-    let processedText = wordsArray.map(w => pronunciationMap[w] || w).join(" ");
+    
+    let processedText = wordsArray.map(w => {
+        if (pronunciationMap[w]) return pronunciationMap[w];
+        return w.replace(/c/g, 'ch');
+    }).join(" ");
 
     const utterance = new SpeechSynthesisUtterance(processedText);
     

@@ -93,15 +93,18 @@ export const defaultVocabulary = [
 ];
 
 export const pronunciationMap = {
-  "bluberi": "blu be ri", 
+  "bluberi": "blubéri", 
   "sup": "suup", 
-  "stroberi": "stro be ri", 
-  "melon": "me lon",
-  "a": "a", "b": "be", "c": "ce", "d": "de", "e": "e",
-  "f": "ef", "g": "ge", "h": "ha", "i": "i", "j": "je",
-  "k": "ka", "l": "el", "m": "em", "n": "en", "o": "o",
-  "p": "pe", "q": "ki", "r": "er", "s": "es", "t": "te",
-  "u": "u", "v": "fe", "w": "we", "x": "eks", "y": "ye", "z": "zet",
+  "stroberi": "strobéri", 
+  "melon": "mélon",
+  "terapis": "térapis",
+  // Pelafalan alfabet untuk huruf satuan (menggunakan ejaan fonetik agar tidak dibaca Inggris)
+  "a": "a", "b": "b", "c": "c", "d": "d", "e": "e", 
+  "f": "ef", "g": "g", "h": "ha", "i": "i", "j": "je", 
+  "k": "ka", "l": "el", "m": "em", "n": "en", "o": "o", 
+  "p": "p", "q": "ki", "r": "er", "s": "es", "t": "t", 
+  "u": "u", "v": "v", "w": "w", "x": "eks", "y": "ye", "z": "zet",
+  // Tetap pertahankan angka jika diperlukan
   "0": "nol", "1": "satu", "2": "dua", "3": "tiga", "4": "empat",
   "5": "lima", "6": "enam", "7": "tujuh", "8": "delapan", "9": "sembilan",
   "10": "sepuluh"
