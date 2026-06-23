@@ -26,7 +26,7 @@ export const playSound = (text, rate = 0.85, pitch = 1.1) => {
     
     let processedText = wordsArray.map(w => {
         if (pronunciationMap[w]) return pronunciationMap[w];
-        return w.replace(/c/g, 'ch');
+        return w;
     }).join(" ");
 
     // Strategi pencarian suara Indonesia yang ketat
