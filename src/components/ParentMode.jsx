@@ -18,14 +18,20 @@ export default function ParentMode() {
   };
 
   const handleAddCategory = () => {
+    const label = prompt('Masukkan nama kategori baru:');
+    if (!label) return;
+    const icon = prompt('Masukkan emoji untuk kategori ini (contoh: 🍎, 🚗, 🏃‍♂️):');
+    if (!icon) return;
+
     const newCat = {
       id: 'cat_' + Date.now(),
-      label: 'Kategori Baru',
+      label: label,
       color: 'bg-slate-100 border-slate-300',
-      icon: '📁',
+      icon: icon,
       words: []
     };
-    setLocalCategories([...localCategories, newCat]);
+    // Menambahkan di urutan pertama agar langsung terlihat oleh user
+    setLocalCategories([newCat, ...localCategories]);
   };
 
   const handleDeleteCategory = (id) => {
