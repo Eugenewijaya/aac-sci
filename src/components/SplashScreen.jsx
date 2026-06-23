@@ -12,30 +12,22 @@ export default function SplashScreen({ onComplete }) {
       onComplete();
     } else {
       setIsVisible(true);
-      // Timer untuk mulai memudarkan layar (fade out)
-      const fadeTimer = setTimeout(() => {
-        setIsFading(true);
-      }, 2500);
-
-      // Timer untuk menyelesaikan proses dan menyimpan ke cache
-      const completeTimer = setTimeout(() => {
-        setIsVisible(false);
-        localStorage.setItem('hasSeenSplash', 'true');
-        onComplete();
-      }, 3000);
-
-      return () => {
-        clearTimeout(fadeTimer);
-        clearTimeout(completeTimer);
-      };
     }
   }, [onComplete]);
+
+  const handleStart = () => {
+    setIsFading(true);
+    setTimeout(() => {
+      localStorage.setItem('hasSeenSplash', 'true');
+      onComplete();
+    }, 500);
+  };
 
   if (!isVisible) return null;
 
   return (
     <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
-      <div className="animate-in zoom-in duration-700 flex flex-col items-center">
+      <div className="animate-in zoom-in duration-700 flex flex-col items-center max-w-sm w-full px-6">
         <img 
           src="/logo.jpg" 
           alt="Star Champs Logo" 
@@ -46,8 +38,12 @@ export default function SplashScreen({ onComplete }) {
           }} 
         />
         {/* Fallback teks jika gambar tidak langsung muncul */}
-        <h1 className="font-black text-4xl text-amber-500 tracking-wider mt-4">STAR CHAMPS</h1>
-        <p className="font-bold text-emerald-700 tracking-widest mt-2">INDONESIA</p>
+        <h1 className="font-black text-4xl text-amber-500 tracking-wider mt-4 text-center">STAR CHAMPS</h1>
+        <p className="font-bold text-emerald-700 tracking-widest mt-2 mb-16 text-center">INDONESIA</p>
+
+        <button onClick={handleStart} className="bg-amber-500 hover:bg-amber-600 text-white w-full py-4 rounded-2xl font-black text-xl shadow-lg shadow-amber-200 active:scale-95 transition-all">
+          MULAI
+        </button>
       </div>
     </div>
   );

@@ -10,11 +10,20 @@ export default function ParentMode() {
   const [localSettings, setLocalSettings] = useState(settings);
   const [localCategories, setLocalCategories] = useState(categories);
 
+  const [showToast, setShowToast] = useState(false);
+
   const handleSave = () => {
+    if (localSettings.pin.length !== 4) {
+      alert('PIN Keamanan harus tepat 4 angka!');
+      return;
+    }
     saveSettings(localSettings);
     saveCategories(localCategories);
-    alert('Pengaturan berhasil disimpan!');
-    navigate('/');
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      navigate('/');
+    }, 1500);
   };
 
   const handleAddCategory = () => {
@@ -101,6 +110,16 @@ export default function ParentMode() {
           <Save size={20} /> Simpan & Keluar
         </button>
       </header>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-top-4 fade-in duration-300">
+          <div className="bg-emerald-500 text-white px-6 py-3 rounded-full shadow-xl flex items-center gap-3 font-bold">
+            <Save size={24} />
+            Pengaturan berhasil disimpan!
+          </div>
+        </div>
+      )}
 
       <main className="flex-1 p-6 max-w-4xl w-full mx-auto space-y-8 pb-24">
         
