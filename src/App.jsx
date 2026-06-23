@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AACProvider, useAAC } from './context/AACContext';
 import AACMode from './components/AACMode';
 import ParentMode from './components/ParentMode';
+import SplashScreen from './components/SplashScreen';
 
 function AppContent() {
   const { loading } = useAAC();
@@ -22,9 +23,12 @@ function AppContent() {
 }
 
 export default function App() {
+  const [splashFinished, setSplashFinished] = useState(false);
+
   return (
     <AACProvider>
-      <AppContent />
+      {!splashFinished && <SplashScreen onComplete={() => setSplashFinished(true)} />}
+      {splashFinished && <AppContent />}
     </AACProvider>
   );
 }
