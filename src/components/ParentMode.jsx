@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAAC } from '../context/AACContext';
-import { ArrowLeft, Plus, Trash2, Save, Upload } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Save, Upload, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ParentMode() {
@@ -11,6 +11,7 @@ export default function ParentMode() {
   const [localCategories, setLocalCategories] = useState(categories);
 
   const [showToast, setShowToast] = useState(false);
+  const [showLegal, setShowLegal] = useState(false);
 
   const handleSave = () => {
     if (localSettings.pin.length !== 4) {
@@ -248,7 +249,53 @@ export default function ParentMode() {
           </div>
         </section>
 
+        {/* Legal & Copyright */}
+        <div className="text-center mt-12 pb-8">
+          <button onClick={() => setShowLegal(true)} className="text-sm font-bold text-slate-400 hover:text-amber-500 transition-colors underline underline-offset-4">
+            Legal & Hak Cipta
+          </button>
+        </div>
+
       </main>
+
+      {/* Legal Modal */}
+      {showLegal && (
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl max-w-lg w-full relative border-4 border-amber-100 max-h-[90vh] overflow-y-auto animate-in zoom-in duration-300">
+            <button onClick={() => setShowLegal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-2 bg-slate-50 rounded-full">
+              <X size={24} />
+            </button>
+            <h2 className="text-2xl font-black text-slate-800 mb-6 border-b-2 border-slate-100 pb-4">Syarat & Ketentuan</h2>
+            
+            <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
+              <p>
+                <strong>Status Aplikasi:</strong> Saat ini aplikasi AAC Star Champs masih dalam mode <em>prototype</em> dan terus dalam tahap pengembangan aktif.
+              </p>
+              <p>
+                <strong>Hak Cipta:</strong> Seluruh hak cipta desain dan kode aplikasi ini adalah milik <strong>Eugenewijaya</strong>. Seluruh kode yang ada di dalam aplikasi ini perlu dan wajib dipatenkan oleh institusi terkait atau klien sebelum didistribusikan secara komersial.
+              </p>
+              <p>
+                <strong>Lisensi Vendor & Pihak Ketiga:</strong>
+                <br/>Pembuatan aplikasi ini melibatkan teknologi dan infrastruktur dari beberapa vendor berikut:
+              </p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li><strong>Antigravity Pro Plan:</strong> Alat perancangan dan asisten pengembangan AI terpadu.</li>
+                <li><strong>Sagara Karya Kreanusati:</strong> Dukungan modul dan komponen sistem fungsionalitas.</li>
+                <li><strong>Vercel & GitHub:</strong> Layanan hosting cloud, domain, dan repositori kode manajemen.</li>
+                <li><strong>Google Translate / Web Speech API:</strong> Layanan modul inti Text-to-Speech (TTS).</li>
+              </ul>
+              <p className="italic text-xs mt-6 text-slate-400">
+                Dengan menggunakan aplikasi ini, Anda menyetujui bahwa aplikasi masih dalam tahap uji coba dan pengembang (developer) tidak bertanggung jawab atas kendala yang terjadi di luar kendali teknis.
+              </p>
+            </div>
+
+            <button onClick={() => setShowLegal(false)} className="mt-8 w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl font-bold transition-colors">
+              Tutup
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
