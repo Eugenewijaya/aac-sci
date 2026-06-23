@@ -25,6 +25,10 @@ export const AACProvider = ({ children }) => {
         }
 
         if (storedSettings) {
+          // Fix for users who accidentally saved a non-4-digit PIN previously
+          if (!storedSettings.pin || storedSettings.pin.length !== 4) {
+            storedSettings.pin = '1234';
+          }
           setSettings({ autoFullscreen: true, ...storedSettings });
         } else {
           await localforage.setItem('aac_settings', { pitch: 1.1, rate: 0.85, pin: '1234', autoFullscreen: true });
