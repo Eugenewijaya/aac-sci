@@ -88,9 +88,9 @@ export default function AACMode() {
       )}
 
       <header className="bg-white shadow-lg z-10 px-3 py-2 flex flex-col gap-2 shrink-0 rounded-b-3xl border-b-4 border-amber-200">
-        <div className="flex justify-between items-center px-1">
-            <h1 className="font-black text-xl text-amber-600 flex items-center gap-2">
-              AAC <span className="text-slate-400 text-xs font-bold bg-slate-100 px-2 py-1 rounded-full hidden sm:inline-block">Star Champs</span>
+        <div className="flex justify-end sm:justify-between items-center px-1">
+            <h1 className="hidden sm:flex font-black text-xl text-amber-600 items-center gap-2">
+              AAC <span className="text-slate-400 text-xs font-bold bg-slate-100 px-2 py-1 rounded-full">Star Champs</span>
             </h1>
             <div className="flex gap-2">
               <button 
@@ -109,37 +109,37 @@ export default function AACMode() {
               </button>
             </div>
         </div>
-        <div className="bg-amber-50/50 border-2 sm:border-4 border-amber-100 rounded-2xl sm:rounded-3xl p-2 sm:p-3 min-h-[60px] sm:min-h-[80px] flex items-center justify-between gap-2 shadow-inner">
-            <div className="flex-1 flex flex-wrap gap-2 text-lg sm:text-xl font-bold text-slate-700 items-center overflow-y-auto max-h-[70px] sm:max-h-[100px] p-1">
+        <div className="bg-amber-50/50 border-2 sm:border-4 border-amber-100 rounded-xl sm:rounded-3xl p-1 sm:p-3 min-h-[48px] sm:min-h-[80px] flex items-center justify-between gap-1 sm:gap-2 shadow-inner">
+            <div className="flex-1 flex flex-wrap gap-1 sm:gap-2 text-base sm:text-xl font-bold text-slate-700 items-center overflow-y-auto max-h-[50px] sm:max-h-[100px] p-1">
                 {currentSentence.length === 0 ? (
-                  <span className="text-slate-400 text-base font-medium italic">Tekan gambar untuk menyusun kata...</span>
+                  <span className="text-slate-400 text-sm sm:text-base font-medium italic">Tekan gambar untuk menyusun kata...</span>
                 ) : (
                   currentSentence.map((item, i) => (
-                    <div key={i} className="bg-white px-4 py-2 rounded-2xl shadow-sm border-2 border-slate-100 text-slate-800 animate-in fade-in zoom-in duration-200">{item.word}</div>
+                    <div key={i} className="bg-white px-2 py-1 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl shadow-sm border-2 border-slate-100 text-slate-800 animate-in fade-in zoom-in duration-200 leading-tight">{item.word}</div>
                   ))
                 )}
             </div>
-            <div className="flex gap-2 shrink-0 border-l-2 sm:border-l-4 border-amber-100 pl-2 sm:pl-3">
-                <button onClick={clearSentence} className="bg-rose-100 text-rose-600 p-2 sm:p-3 rounded-xl sm:rounded-2xl w-12 h-12 sm:w-16 sm:h-16 flex flex-col items-center justify-center active:scale-95 transition-transform">
-                  <Trash2 size={24} />
+            <div className="flex gap-1 sm:gap-2 shrink-0 border-l-2 sm:border-l-4 border-amber-100 pl-1 sm:pl-3">
+                <button onClick={clearSentence} className="bg-rose-100 text-rose-600 p-1 sm:p-3 rounded-lg sm:rounded-2xl w-10 h-10 sm:w-16 sm:h-16 flex flex-col items-center justify-center active:scale-95 transition-transform">
+                  <Trash2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
-                <button onClick={speakSentence} className="bg-amber-500 text-white p-2 sm:p-3 rounded-xl sm:rounded-2xl w-12 h-12 sm:w-16 sm:h-16 flex flex-col items-center justify-center active:scale-95 transition-transform shadow-md shadow-amber-200/50">
-                  <Mic size={24} />
+                <button onClick={speakSentence} className="bg-amber-500 text-white p-1 sm:p-3 rounded-lg sm:rounded-2xl w-10 h-10 sm:w-16 sm:h-16 flex flex-col items-center justify-center active:scale-95 transition-transform shadow-md shadow-amber-200/50">
+                  <Mic className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
             </div>
         </div>
       </header>
 
       <main className="flex-1 flex flex-col overflow-hidden">
-        <nav className="shrink-0 p-3 overflow-x-auto no-scrollbar border-b border-amber-100/50">
-            <div className="flex gap-3">
+        <nav className="shrink-0 p-1 sm:p-3 overflow-x-auto no-scrollbar border-b border-amber-100/50">
+            <div className="flex gap-2 sm:gap-3">
               {categories.map(cat => (
                 <button 
                   key={cat.id}
                   onClick={() => setActiveCategoryId(cat.id)} 
-                  className={`px-6 py-3 rounded-2xl bg-white border-b-4 transition-all whitespace-nowrap font-bold flex items-center gap-2 ${activeCategoryId === cat.id ? 'border-amber-500 text-amber-600 shadow-md scale-105' : 'border-slate-200 text-slate-400'}`}
+                  className={`px-3 py-1 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl bg-white border-b-2 sm:border-b-4 transition-all whitespace-nowrap font-bold text-sm sm:text-base flex items-center gap-1 sm:gap-2 ${activeCategoryId === cat.id ? 'border-amber-500 text-amber-600 shadow-sm scale-105' : 'border-slate-200 text-slate-400'}`}
                 >
-                    <span className="text-2xl">{cat.icon}</span> {cat.label}
+                    <span className="text-xl sm:text-2xl">{cat.icon}</span> {cat.label}
                 </button>
               ))}
             </div>
