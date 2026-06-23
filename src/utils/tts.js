@@ -46,7 +46,7 @@ export const playSound = (text, rate = 0.85, pitch = 1.1) => {
     } else {
         // Jika perangkat TIDAK PUNYA suara Indonesia (sering terjadi di browser tertentu),
         // Gunakan Google Translate TTS API sebagai penyelamat (butuh internet)
-        let googleText = encodeURIComponent(text);
+        let googleText = encodeURIComponent(processedText);
         let audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=id&client=tw-ob&q=${googleText}`;
         let audio = new Audio(audioUrl);
         audio.playbackRate = rate;

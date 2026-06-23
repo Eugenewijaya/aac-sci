@@ -93,21 +93,21 @@ export const defaultVocabulary = [
 ];
 
 export const pronunciationMap = {
-  "bluberi": "blubéri", 
+  "bluberi": "blu beri", 
   "sup": "suup", 
-  "stroberi": "strobéri", 
-  "melon": "mélon",
-  "terapis": "térapis",
+  "stroberi": "stro beri", 
+  "melon": "meh lon",
+  "terapis": "teh rapis",
   "haus": "ha us",
   "drum": "dram",
   "om": "oom",
-  "helikopter": "héli kopter",
+  "helikopter": "heh li kopter",
   // Pelafalan alfabet untuk huruf satuan (menggunakan ejaan fonetik agar tidak dibaca Inggris)
-  "a": "a", "b": "bé", "c": "cé", "d": "dé", "e": "é", 
-  "f": "ef", "g": "gé", "h": "ha", "i": "i", "j": "jé", 
+  "a": "a", "b": "beh", "c": "ceh", "d": "deh", "e": "eh", 
+  "f": "ef", "g": "geh", "h": "ha", "i": "i", "j": "jeh", 
   "k": "ka", "l": "el", "m": "em", "n": "en", "o": "o", 
-  "p": "pé", "q": "ki", "r": "er", "s": "es", "t": "té", 
-  "u": "u", "v": "vé", "w": "wé", "x": "eks", "y": "yé", "z": "zet",
+  "p": "peh", "q": "ki", "r": "er", "s": "es", "t": "teh", 
+  "u": "u", "v": "veh", "w": "weh", "x": "eks", "y": "yeh", "z": "zet",
   // Tetap pertahankan angka jika diperlukan
   "0": "nol", "1": "satu", "2": "dua", "3": "tiga", "4": "empat",
   "5": "lima", "6": "enam", "7": "tujuh", "8": "delapan", "9": "sembilan",
