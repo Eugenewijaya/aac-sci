@@ -139,7 +139,7 @@ export default function SplashScreen({ onComplete }) {
                     onClick={requestLandscape} 
                     className="bg-white text-slate-700 hover:bg-slate-50 w-full py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold mb-4 sm:mb-6 border-2 border-slate-200 shadow-sm text-sm sm:text-base"
                   >
-                    Paksa Auto-Landscape
+                    Beralih Mode Landscape
                   </motion.button>
                   <motion.div variants={itemVariants} className="flex gap-2 sm:gap-3 w-full">
                     <motion.button 
