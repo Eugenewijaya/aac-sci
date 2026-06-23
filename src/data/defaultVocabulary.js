@@ -92,24 +92,56 @@ export const defaultVocabulary = [
   }
 ];
 
-export const pronunciationMap = {
-  "bluberi": "blu beh ri", 
-  "sup": "suup", 
-  "stroberi": "stro beh ri", 
-  "melon": "meh lon",
-  "terapis": "teh rapis",
-  "haus": "ha us",
-  "drum": "dram",
-  "om": "oom",
-  "helikopter": "heh li kopter",
-  // Pelafalan alfabet untuk huruf satuan (menggunakan ejaan fonetik agar tidak dibaca Inggris)
-  "a": "a", "b": "beh", "c": "ceh", "d": "deh", "e": "eh", 
-  "f": "ef", "g": "geh", "h": "ha", "i": "i", "j": "jeh", 
-  "k": "ka", "l": "el", "m": "em", "n": "en", "o": "o", 
-  "p": "peh", "q": "ki", "r": "er", "s": "es", "t": "teh", 
-  "u": "u", "v": "veh", "w": "weh", "x": "eks", "y": "yeh", "z": "zet",
-  // Tetap pertahankan angka jika diperlukan
-  "0": "nol", "1": "satu", "2": "dua", "3": "tiga", "4": "empat",
-  "5": "lima", "6": "enam", "7": "tujuh", "8": "delapan", "9": "sembilan",
-  "10": "sepuluh"
+export const getPronunciation = (word, os) => {
+    const w = word.toLowerCase();
+    
+    // 1. General mappings that work well across all devices
+    const general = {
+        "sup": "suup", 
+        "haus": "ha us",
+        "drum": "dram",
+        "om": "oom",
+        "a": "a", "f": "ef", "h": "ha", "i": "i", 
+        "k": "ka", "l": "el", "m": "em", "n": "en", "o": "o", 
+        "q": "ki", "r": "er", "s": "es", 
+        "u": "u", "w": "weh", "x": "eks", "y": "yeh", "z": "zet",
+        "0": "nol", "1": "satu", "2": "dua", "3": "tiga", "4": "empat",
+        "5": "lima", "6": "enam", "7": "tujuh", "8": "delapan", "9": "sembilan",
+        "10": "sepuluh"
+    };
+
+    // 2. Android specific (Google TTS often needs "beh", "teh" to avoid "e" as in "ember")
+    const androidSpecific = {
+        "bluberi": "blu beh ri", 
+        "stroberi": "stro beh ri", 
+        "melon": "meh lon",
+        "terapis": "teh rapis",
+        "helikopter": "heh li kopter",
+        "b": "beh", "c": "ceh", "d": "deh", "e": "eh", "g": "geh", "j": "jeh", "p": "peh", "t": "teh", "v": "veh"
+    };
+
+    // 3. Apple specific (Damayanti handles "é" well, but disjointed spaces sound bad)
+    const appleSpecific = {
+        "bluberi": "blubéri", 
+        "stroberi": "strobéri", 
+        "melon": "mélon",
+        "terapis": "térapis",
+        "helikopter": "hélikopter",
+        "b": "bé", "c": "cé", "d": "dé", "e": "é", "g": "gé", "j": "jé", "p": "pé", "t": "té", "v": "vé"
+    };
+
+    // 4. Windows specific (Microsoft Andika/Gadis usually reads standard spelling fine)
+    const windowsSpecific = {
+        "b": "be", "c": "ce", "d": "de", "e": "e", "g": "ge", "j": "je", "p": "pe", "t": "te", "v": "ve"
+    };
+
+    if (os === 'android') {
+        return androidSpecific[w] || general[w] || w;
+    } else if (os === 'ios' || os === 'macos') {
+        return appleSpecific[w] || general[w] || w;
+    } else if (os === 'windows') {
+        return windowsSpecific[w] || general[w] || w;
+    }
+
+    return general[w] || w;
 };

@@ -1,4 +1,4 @@
-import { pronunciationMap } from '../data/defaultVocabulary';
+import { getPronunciation } from '../data/defaultVocabulary';
 
 const synth = window.speechSynthesis;
 let availableVoices = [];
@@ -13,6 +13,15 @@ if (synth.onvoiceschanged !== undefined) {
 // Initial attempt
 loadVoices();
 
+const getOS = () => {
+    const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+    if (/android/i.test(userAgent)) return 'android';
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return 'ios';
+    if (/Macintosh|Mac OS X/.test(userAgent)) return 'macos';
+    if (/windows/i.test(userAgent)) return 'windows';
+    return 'default';
+};
+
 export const playSound = (text, rate = 0.85, pitch = 1.1) => {
     if (synth.speaking) synth.cancel();
     
@@ -21,13 +30,11 @@ export const playSound = (text, rate = 0.85, pitch = 1.1) => {
         availableVoices = synth.getVoices();
     }
     
+    const os = getOS();
     let spokenText = text.toLowerCase();
     let wordsArray = spokenText.split(" ");
     
-    let processedText = wordsArray.map(w => {
-        if (pronunciationMap[w]) return pronunciationMap[w];
-        return w;
-    }).join(" ");
+    let processedText = wordsArray.map(w => getPronunciation(w, os)).join(" ");
 
     // Strategi pencarian suara Indonesia yang ketat
     let idVoice = availableVoices.find(v => v.lang === 'id-ID' && v.name.includes('Google')) ||
