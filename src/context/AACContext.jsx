@@ -17,7 +17,7 @@ export const AACProvider = ({ children }) => {
         const storedCats = await localforage.getItem('aac_categories');
         const storedSettings = await localforage.getItem('aac_settings');
         
-        if (storedCats && storedCats.length > 0) {
+        if (storedCats !== null) {
           setCategories(storedCats);
         } else {
           setCategories(defaultVocabulary);

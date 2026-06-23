@@ -93,12 +93,12 @@ export const defaultVocabulary = [
 ];
 
 export const pronunciationMap = {
-  "bluberi": "blu behri", 
+  "bluberi": "blubéri", 
   "sup": "suup", 
-  "stroberi": "stro behri", 
+  "stroberi": "strobéri", 
   "melon": "mélon",
   "terapis": "térapis",
-  "haus": "ha-us",
+  "haus": "ha us",
   "drum": "dram",
   "om": "oom",
   "helikopter": "héli kopter",
