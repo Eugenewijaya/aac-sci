@@ -1,9 +1,25 @@
 import { pronunciationMap } from '../data/defaultVocabulary';
 
 const synth = window.speechSynthesis;
+let availableVoices = [];
+
+export const loadVoices = () => {
+    availableVoices = synth.getVoices();
+};
+
+if (synth.onvoiceschanged !== undefined) {
+    synth.onvoiceschanged = loadVoices;
+}
+// Initial attempt
+loadVoices();
 
 export const playSound = (text, rate = 0.85, pitch = 1.1) => {
     if (synth.speaking) synth.cancel();
+    
+    // Fallback jika voices belum termuat
+    if (availableVoices.length === 0) {
+        availableVoices = synth.getVoices();
+    }
     
     let spokenText = text.toLowerCase();
     let wordsArray = spokenText.split(" ");
@@ -15,13 +31,11 @@ export const playSound = (text, rate = 0.85, pitch = 1.1) => {
 
     const utterance = new SpeechSynthesisUtterance(processedText);
     
-    // Selalu ambil daftar suara terbaru saat tombol ditekan
-    const voices = synth.getVoices();
-    
-    // Cari suara bahasa Indonesia (beberapa sistem menggunakan id-ID, id_ID, in-ID, atau in_ID)
-    let idVoice = voices.find(v => (v.lang === 'id-ID' || v.lang === 'in-ID') && v.name.includes('Google')) ||
-                  voices.find(v => v.lang === 'id-ID' || v.lang === 'id_ID' || v.lang === 'in-ID' || v.lang === 'in_ID') ||
-                  voices.find(v => v.lang.toLowerCase().startsWith('id') || v.lang.toLowerCase().startsWith('in'));
+    // Strategi pencarian suara Indonesia yang tangguh
+    let idVoice = availableVoices.find(v => v.lang === 'id-ID' && v.name.includes('Google')) ||
+                  availableVoices.find(v => v.name.includes('Damayanti') || v.name.includes('Andika') || v.name.includes('Gadis')) ||
+                  availableVoices.find(v => v.lang === 'id-ID' || v.lang === 'id_ID' || v.lang === 'in-ID' || v.lang === 'in_ID') ||
+                  availableVoices.find(v => v.name.toLowerCase().includes('indonesia'));
 
     if (idVoice) {
         utterance.voice = idVoice;
