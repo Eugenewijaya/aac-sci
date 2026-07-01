@@ -87,6 +87,7 @@ export default function BoardPage() {
         "cuaca": "chuacha",
         "blueberi": "blu beh ri",
         "bluberi": "blu beh ri",
+        "ganteng": "ganténg",
         ...userMap
       };
       const words = processed.split(" ");
