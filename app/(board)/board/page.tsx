@@ -82,7 +82,13 @@ export default function BoardPage() {
 
     let processed = text.toLowerCase();
     try {
-      const map: Record<string, string> = JSON.parse(settings.pronunciationMap);
+      const userMap: Record<string, string> = JSON.parse(settings.pronunciationMap);
+      const map: Record<string, string> = {
+        "cuaca": "chuacha",
+        "blueberi": "blu beh ri",
+        "bluberi": "blu beh ri",
+        ...userMap
+      };
       const words = processed.split(" ");
       processed = words.map((w) => map[w] || w).join(" ");
     } catch { /* ignore parse errors */ }
