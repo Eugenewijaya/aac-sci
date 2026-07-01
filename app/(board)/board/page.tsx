@@ -203,9 +203,17 @@ export default function BoardPage() {
           </div>
           <div className="flex gap-2 shrink-0 border-l-4 border-amber-100 pl-2">
             <button
+              id="backspace-btn"
+              onClick={() => setSentence((s) => s.slice(0, -1))}
+              className="bg-orange-100 text-orange-600 p-2.5 rounded-2xl w-14 h-14 flex flex-col items-center justify-center card-press text-2xl shadow"
+              aria-label="Hapus satu kata"
+            >
+              ⌫
+            </button>
+            <button
               id="clear-btn"
               onClick={() => setSentence([])}
-              className="bg-rose-100 text-rose-600 p-2.5 rounded-2xl w-14 h-14 flex flex-col items-center justify-center card-press text-2xl"
+              className="bg-rose-100 text-rose-600 p-2.5 rounded-2xl w-14 h-14 flex flex-col items-center justify-center card-press text-2xl shadow"
               aria-label="Hapus kalimat"
             >
               🗑️

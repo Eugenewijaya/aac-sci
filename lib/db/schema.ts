@@ -38,7 +38,7 @@ export const appSettings = pgTable("app_settings", {
   // JSON string of { word: spokenText } pairs
   pronunciationMap: text("pronunciation_map")
     .notNull()
-    .default('{"bluberi":"blu beh ri","sup":"suup","stroberi":"stro beh ri","melon":"mélon"}'),
+    .default('{"blueberi":"blu beh ri","sup":"suup","stroberi":"stro beh ri","melon":"mélon","cuaca":"chuacha"}'),
   seeded: boolean("seeded").notNull().default(false),
 });
 

@@ -33,7 +33,7 @@ export default function CategoriesPage() {
   const [saving, setSaving] = useState(false);
 
   async function fetchCategories() {
-    const res = await fetch("/api/categories");
+    const res = await fetch("/api/categories", { cache: "no-store" });
     const data = await res.json();
     setCategories(data);
     setLoading(false);

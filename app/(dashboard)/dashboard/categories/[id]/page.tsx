@@ -23,7 +23,7 @@ export default function CategoryCardsPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function fetchCategory() {
-    const res = await fetch("/api/categories");
+    const res = await fetch("/api/categories", { cache: "no-store" });
     const all: Category[] = await res.json();
     const cat = all.find((c) => c.id === parseInt(catId));
     setCategory(cat || null);

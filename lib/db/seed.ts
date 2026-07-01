@@ -68,7 +68,7 @@ const DEFAULT_VOCABULARY = [
       { word: "Brokoli", emoji: "🥦" },
       { word: "Jagung", emoji: "🌽" },
       { word: "Roti", emoji: "🍞" },
-      { word: "Bluberi", emoji: "🫐" },
+      { word: "Blueberi", emoji: "🫐" },
       { word: "Kentang", emoji: "🥔" },
       { word: "Ayam", emoji: "🍗" },
       { word: "Sup", emoji: "🥣" },
